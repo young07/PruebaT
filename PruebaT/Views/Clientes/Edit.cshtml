@@ -1,0 +1,115 @@
+﻿@model PruebaT.Models.Cliente
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+    
+<div class="form-horizontal">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <h4>Cliente</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Apellido, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Apellido, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Apellido, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Cedula, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Cedula, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Cedula, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>
+        </div>
+    }
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3>Direcciones</h3></div>
+        <div class="container">
+            <div class="panel-body">
+                <div class="form-group">
+                    @using (Html.BeginForm("AgregarDireccion", "Clientes", FormMethod.Post))
+                    {
+                        <input name="ID_Cliente" id="ID_Cliente" value="@ViewBag.ID_Cliente" style="display:none"/>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Agregar Dirección</label>
+                                <input type="text" class="form-control" name="Direccion" id="Direccion" placeholder="Direccion" />
+                            </div>
+                            <div class="col-md-4" style="margin-top:30px">
+                                <button type="submit" id="direccionClick" class="btn btn-primary btn-comand float-right">
+                                    Agregar
+                                </button>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <table class="table table-bordered">
+                                <thead class="thead-light">
+                                    <tr>
+                                        Direccion
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (ViewBag.Direcciones != null)
+                                    {
+                                        foreach (var item in ViewBag.Direcciones)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @item.Direccion
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Regresar", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
